@@ -5,6 +5,7 @@
 #include "world.h"
 #include "viewport.h"
 #include "player.h"
+#include "bullet.h"
 #include "hud.h"
 
 class Manager {
@@ -29,6 +30,9 @@ private:
 
   Player *player;
   std::vector<Drawable*> sprites;
+  
+  std::list<Bullet*> freeBull;
+  std::list<Bullet*> inUse;
 
   bool makeVideo;
   bool god;

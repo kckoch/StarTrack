@@ -5,6 +5,7 @@
 #include "2waymultisprite.h"
 #include "player.h"
 #include "sprite.h"
+#include "bullet.h"
 #include "gamedata.h"
 #include "manager.h"
 #include "hud.h"
@@ -74,7 +75,9 @@ Manager::Manager() :
   for(int i = 0; i < maxRocks/Gamedata::getInstance().getXmlInt("bigyell/rarity"); i++) {
     sprites.push_back(new Sprite("bigyell"));
   }
-  for(int i = 0; i < Gamedata::getInstance().getXmlInt("maxBullets"); i++)
+  for(int i = 0; i < Gamedata::getInstance().getXmlInt("maxBullets"); i++) {
+    freeBull.push_back(new Bullet("bullet"));
+  }
   viewport.setObjectToTrack(player);
 }
 

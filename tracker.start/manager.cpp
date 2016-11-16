@@ -5,6 +5,7 @@
 #include "2waymultisprite.h"
 #include "player.h"
 #include "sprite.h"
+#include "bullet.h"
 #include "gamedata.h"
 #include "manager.h"
 #include "hud.h"
@@ -98,8 +99,6 @@ void Manager::draw() const {
     sprites[i]->draw();
   }
   player->draw();
-  io.printMessageValueAt("X: ", player->X(), 320, 80);
-  io.printMessageValueAt("Y: ", player->Y(), 400, 80);
   if ( checkForCollisions() ) {
     io.printMessageAt("*** Oops ***, collision!", 320, 60);
   } else {

@@ -4,13 +4,29 @@
 #include "gamedata.h"
 #include "frameFactory.h"
 
+Bullet::Bullet(const std::string& name) :
+        Sprite(name, Vector2f(0,0), Vector2f(
+            Gamedata::getInstance().getXmlInt("bullet/speedX"), 
+            Gamedata::getInstance().getXmlInt("bullet/speedY"))),
+        avail(true),
+        travelDist(Gamedata::getInstance().getXmlInt("bullet/distance")),
+        startPos(Vector2f(0,0)),
+        xspeed(Gamedata::getInstance().getXmlInt("bullet/speedX")),
+        yspeed(Gamedata::getInstance().getXmlInt("bullet/speedy")),
+        frame(FrameFactory::getInstance().getFrame(name)),
+        frameWidth(frame->getWidth()),
+        frameHeight(frame->getHeight()),
+        worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
+        worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
+{}
+
 Bullet::Bullet(const std::string& name, const Vector2f pos, const Vector2f vel) :
         Sprite(name, pos, vel),
         avail(true),
         travelDist(Gamedata::getInstance().getXmlInt("bullet/distance")),
         startPos(pos),
         xspeed(Gamedata::getInstance().getXmlInt("bullet/speedX")),
-        yspeed(Gamedata::getInstance().getXmlInt("bullet/speedy")),
+        yspeed(Gamedata::getInstance().getXmlInt("bullet/speedY")),
         frame(FrameFactory::getInstance().getFrame(name)),
         frameWidth(frame->getWidth()),
         frameHeight(frame->getHeight()),

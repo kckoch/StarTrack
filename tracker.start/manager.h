@@ -1,10 +1,12 @@
 #include <vector>
+#include <list>
 #include <SDL.h>
 #include "ioManager.h"
 #include "clock.h"
 #include "world.h"
 #include "viewport.h"
 #include "player.h"
+#include "bullet.h"
 #include "hud.h"
 
 class Manager {

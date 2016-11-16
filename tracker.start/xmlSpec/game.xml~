@@ -17,6 +17,8 @@
 <maxWidth>50000</maxWidth>
 <strategy>2</strategy>
 
+<maxBullets>20</maxBullets>
+
 <view>
   <width>854</width>
   <height>480</height>
@@ -149,9 +151,11 @@
 </bigyell>
 
 <bullet>
+  <file>images/yellowrocklarge.bmp</file>
   <distance>100</distance>
   <speedX>300</speedX>
-  <speedX>300</speedX>
+  <speedY>300</speedY>
+  <transparency>true</transparency>
 </bullet>
 
 </GameData>

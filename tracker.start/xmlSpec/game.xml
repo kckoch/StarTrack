@@ -151,9 +151,11 @@
 </bigyell>
 
 <bullet>
+  <file>images/yellowrocklarge.bmp</file>
   <distance>100</distance>
   <speedX>300</speedX>
-  <speedX>300</speedX>
+  <speedY>300</speedY>
+  <transparency>true</transparency>
 </bullet>
 
 </GameData>
