@@ -1,0 +1,5 @@
+Kyra Koch
+10/28/2016
+Assignment 4
+
+Basically the game will be a simple mining game.  You'll have resource levels for 3 different minerals.  If you see a level getting low, you have to "mine" that color meteor to get more of that resource, before the level runs out.  If it runs out, it's game over.  Your score will be calculated based on how long you survive.  As time goes on, resources will be spawned further away, so you can waste fuel by possibly going in a "bad" direction, where there are limited resources.
