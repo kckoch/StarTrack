@@ -16,14 +16,13 @@ public:
   void updateMovement(int movein);
   virtual void update(Uint32 ticks);
   bool collidedWith(const Drawable* d) const {
-    return strategy->execute(player, *d);
+    return strategy->execute(*this, *d);
   }
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
   }
 
 private:
-  Sprite player;
   const std::vector<Frame *> frames;
   int worldWidth;
   int worldHeight;

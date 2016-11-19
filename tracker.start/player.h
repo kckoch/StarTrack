@@ -21,6 +21,7 @@ public:
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
   }
+  unsigned getCurrentFrame() { return currentFrame; }
 
 private:
   const std::vector<Frame *> frames;

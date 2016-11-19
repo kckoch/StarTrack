@@ -48,6 +48,12 @@ Bullet::Bullet(const Bullet& b) :
     worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
 { }
 
+void Bullet::draw() const { 
+  Uint32 x = static_cast<Uint32>(X());
+  Uint32 y = static_cast<Uint32>(Y());
+  frame->draw(x, y); 
+}
+
 void Bullet::update(Uint32 ticks) {
     Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
     Vector2f pos = getPosition();

@@ -12,7 +12,7 @@ Bullet::Bullet(const std::string& name) :
         travelDist(Gamedata::getInstance().getXmlInt("bullet/distance")),
         startPos(Vector2f(0,0)),
         xspeed(Gamedata::getInstance().getXmlInt("bullet/speedX")),
-        yspeed(Gamedata::getInstance().getXmlInt("bullet/speedy")),
+        yspeed(Gamedata::getInstance().getXmlInt("bullet/speedY")),
         frame(FrameFactory::getInstance().getFrame(name)),
         frameWidth(frame->getWidth()),
         frameHeight(frame->getHeight()),

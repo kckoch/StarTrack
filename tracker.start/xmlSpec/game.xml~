@@ -151,8 +151,8 @@
 </bigyell>
 
 <bullet>
-  <file>images/yellowrocklarge.bmp</file>
-  <distance>100</distance>
+  <file>images/bullet.bmp</file>
+  <distance>300</distance>
   <speedX>300</speedX>
   <speedY>300</speedY>
   <transparency>true</transparency>

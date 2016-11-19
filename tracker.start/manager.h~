@@ -1,4 +1,5 @@
 #include <vector>
+#include <list>
 #include <SDL.h>
 #include "ioManager.h"
 #include "clock.h"
@@ -31,8 +32,8 @@ private:
   Player *player;
   std::vector<Drawable*> sprites;
   
-  std::list<Bullet*> freeBull;
-  std::list<Bullet*> inUse;
+  std::list<Sprite*> freeBull;
+  std::list<Sprite*> inUse;
 
   bool makeVideo;
   bool god;
