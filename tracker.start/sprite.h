@@ -15,6 +15,8 @@ public:
   virtual const Frame* getFrame() const { return frame; }
   virtual void draw() const;
   virtual void update(Uint32 ticks);
+  virtual int getSize() const { return size; }
+  void respawn();
 
 private:
   const Frame * frame;
@@ -23,5 +25,6 @@ private:
   int worldWidth;
   int worldHeight;
   int getDistance(const Sprite*) const;
+  int size;
 };
 #endif

@@ -6,6 +6,7 @@
 #include "player.h"
 #include "sprite.h"
 #include "bullet.h"
+#include "explodingSprite.h"
 #include "gamedata.h"
 #include "manager.h"
 #include "hud.h"
@@ -33,6 +34,8 @@ Manager::Manager() :
   sprites(),
   freeBull(),
   inUse(),
+  collSize(),
+  exploding(),
   makeVideo( false ),
   god(false),
   frameCount( 0 ),
@@ -47,6 +50,7 @@ Manager::Manager() :
   SDL_WM_SetCaption(title.c_str(), NULL);
   atexit(SDL_Quit);
   player = new Player("ship");
+  hud.setHealth(player->getHealth());
   int maxRocks = Gamedata::getInstance().getXmlInt("maxRocks");
   for(int i = 0; i < maxRocks/Gamedata::getInstance().getXmlInt("smallblue/rarity"); i++) {
     sprites.push_back(new Sprite("smallblue"));
@@ -81,10 +85,15 @@ Manager::Manager() :
   viewport.setObjectToTrack(player);
 }
 
-bool Manager::checkForCollisions() const {
-  std::vector<Drawable*>::const_iterator sprite = sprites.begin();
+bool Manager::checkForCollisions() {
+  std::vector<Sprite*>::iterator sprite = sprites.begin();
   while ( sprite != sprites.end() ) {
-    if ( player->collidedWith(*sprite) ) return true;
+    if ( player->collidedWith(*sprite) ) {
+        player->takeDamage((*sprite)->getSize());
+        sprites.push_back(new ExplodingSprite(*(*sprite)));
+        (*sprite)->respawn();
+        return true;
+    }
     ++sprite;
   }
   return false;
@@ -98,22 +107,23 @@ void Manager::draw() const {
   for (unsigned i = 0; i < sprites.size(); ++i) {
     sprites[i]->draw();
   }
-  int i = 0;
+  //int i = 0;
   for(std::list<Bullet*>::const_iterator it = inUse.begin(); it != inUse.end(); it++) {
     (*it)->draw();
-    io.printMessageValueAt("X: ", (*it)->X(), 500, 20+i*20);
-    io.printMessageValueAt("Y: ", (*it)->Y(), 600, 20+i*20);
-    i++;
+    //io.printMessageValueAt("X: ", (*it)->X(), 500, 20+i*20);
+    //io.printMessageValueAt("Y: ", (*it)->Y(), 600, 20+i*20);
+    //i++;
+  }
+  for(std::list<ExplodingSprite*>::const_iterator it = exploding.begin(); it != exploding.end(); it++) {
+    (*it)->draw();
   }
   io.printMessageValueAt("FreeList: ", freeBull.size(), 320, 20);
   io.printMessageValueAt("InUse: ", inUse.size(), 320, 40);
-  io.printMessageValueAt("X: ", player->X(), 320, 80);
-  io.printMessageValueAt("Y: ", player->Y(), 390, 80);
+  //io.printMessageValueAt("X: ", player->X(), 320, 80);
+  //io.printMessageValueAt("Y: ", player->Y(), 390, 80);
   player->draw();
   if ( checkForCollisions() ) {
-    io.printMessageAt("*** Oops ***, collision!", 320, 60);
-  } else {
-    io.printMessageAt("No Collision.", 320, 60);
+    hud.setHealth(player->getHealth());
   }
   hud.draw();
   viewport.draw();
@@ -144,11 +154,16 @@ void Manager::update() {
     sprites[i]->update(ticks);
   }
   for(std::list<Bullet*>::iterator it = inUse.begin(); it != inUse.end(); it++) {
-    /*if((*it)->checkDone()) {
+    (*it)->update(ticks);
+    if((*it)->checkDone()) {
       freeBull.push_back(*it);
       it = inUse.erase(it);
-    }*/
-    (*it)->update(ticks);
+    }
+  }
+  for(std::list<ExplodingSprite*>::iterator it = exploding.begin(); it != exploding.end(); it++) {
+    if((*it)->chunkCount() == 0){
+      it = exploding.erase(it);
+    }
   }
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
@@ -200,61 +215,54 @@ void Manager::play() {
           }
         }
         if (keystate[SDLK_SPACE]) {
-          if(freeBull.size() >=2) {
-            int xVel = 0;
-            int yVel = 0;
-            int xPos = 0;
-            int yPos = 23;
-            int pVelY = player->velocityY();
-            int pVelX = player->velocityX();
-            //player going to the left
-            if(pVelX < 0) {
-              xVel = -1;
-              xPos = 2;
-              if(pVelY > 0){
-                yVel = 1;
-              } else if (pVelY < 0) {
-                yVel = -1;
-              } else { yVel = 0; }
-            } else if(pVelX > 0) {
-              //player going to the right
+          if(freeBull.size() < 2) {
+            freeBull.push_back(new Bullet("bullet"));
+            freeBull.push_back(new Bullet("bullet"));
+          }
+          int xVel = 0;
+          int xPos = 0;
+          int yPos = 23;
+          int pVelX = player->velocityX();
+          //player going to the left
+          if(pVelX < 0) {
+            xVel = -1;
+            xPos = 2;
+          } else if(pVelX > 0) {
+            //player going to the right
+            xVel = 1;
+            xPos = 100;
+          } else {
+            //have to check which direction the ship is facing
+            if(player->getCurrentFrame()==0){
               xVel = 1;
               xPos = 100;
-              if(pVelY > 0){
-                yVel = 1;
-              } else if (pVelY < 0) {
-                yVel = -1;
-              } else { yVel = 0; }
             } else {
-              //have to check which direction the ship is facing
-              if(player->getCurrentFrame()==0){
-                xVel = 1;
-                xPos = 100;
-                if(pVelY > 0){
-                yVel = 1;
-                } else if (pVelY< 0) {
-                  yVel = -1;
-                } else { yVel = 0; }
-              } else {
-                xVel = -1;
-                xPos = 2;
-                if(pVelY > 0){
-                  yVel = 1;
-                } else if (pVelY < 0) {
-                  yVel = -1;
-                } else { yVel = 0; }
-              }
+              xVel = -1;
+              xPos = 2;
             }
-            std::list<Bullet*>::iterator it = freeBull.begin();
-            (*it)->inUse(Vector2f(player->X()+xPos, player->Y()+yPos));
-            (*it)->setVelo(xVel, yVel);
-            inUse.push_back(*it);
-            it = freeBull.erase(it);
-            (*it)->inUse(Vector2f(player->X()+xPos, player->Y()+yPos+15));
-            (*it)->setVelo(xVel, yVel);
-            inUse.push_back(*it);
-            it = freeBull.erase(it);
           }
+          //set the first bulelt
+          std::list<Bullet*>::iterator it = freeBull.begin();
+          (*it)->inUse(Vector2f(player->X()+xPos, player->Y()+yPos));
+          (*it)->setVelo(xVel, 0);
+          inUse.push_back(*it);
+          it = freeBull.erase(it);
+          //set the second bullet
+          (*it)->inUse(Vector2f(player->X()+xPos, player->Y()+yPos+15));
+          (*it)->setVelo(xVel, 0);
+          inUse.push_back(*it);
+          it = freeBull.erase(it);
+        }
+        if (keystate[SDLK_r]) {
+          for (unsigned i = 0; i < sprites.size(); ++i) {
+            sprites[i]->respawn();
+          }
+          player->respawn();
+          for(std::list<Bullet*>::iterator it = inUse.begin(); it != inUse.end(); it++) {
+            freeBull.push_back(*it);
+            it = inUse.erase(it);
+          }
+          hud.setHealth(player->getHealth());
         }
       }
       if(event.type == SDL_KEYUP) {

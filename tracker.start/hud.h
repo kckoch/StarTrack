@@ -10,6 +10,7 @@ public:
     void setShow(bool in);
     void toggle();
     void toggleGod();
+    void setHealth(int healthin) { health = healthin; }
 private:
     const IOManager& io;
     SDL_Surface * const screen;
@@ -20,6 +21,7 @@ private:
     const std::string username;
     const std::string title;
     const int frameMax;
+    int health;
     
     Hud();
     Hud(const Hud &h);

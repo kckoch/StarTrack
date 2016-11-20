@@ -7,6 +7,7 @@
 #include "viewport.h"
 #include "player.h"
 #include "bullet.h"
+#include "explodingSprite.h"
 #include "hud.h"
 
 class Manager {
@@ -30,10 +31,11 @@ private:
   Viewport& viewport;
 
   Player *player;
-  std::vector<Drawable*> sprites;
-  
-  std::list<Sprite*> freeBull;
-  std::list<Sprite*> inUse;
+  std::vector<Sprite*> sprites;
+  std::list<Bullet*> freeBull;
+  std::list<Bullet*> inUse;
+  std::vector<int> collSize;
+  std::list<ExplodingSprite*> exploding;
 
   bool makeVideo;
   bool god;

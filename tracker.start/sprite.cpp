@@ -14,7 +14,8 @@ Sprite::Sprite(const std::string& name) :
   frameWidth(frame->getWidth()),
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
-  worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
+  worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+  size(Gamedata::getInstance().getXmlInt(name+"/size"))
 {
     X(rand()%Gamedata::getInstance().getXmlInt("maxWidth"));
     Y(rand()%worldHeight);
@@ -26,7 +27,8 @@ Sprite::Sprite(const string& n, const Vector2f& pos, const Vector2f& vel):
   frameWidth(frame->getWidth()),
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
-  worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
+  worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+  size(Gamedata::getInstance().getXmlInt(n+"/size"))
 { }
 
 Sprite::Sprite(const string& n, const Vector2f& pos, const Vector2f& vel,
@@ -36,7 +38,8 @@ Sprite::Sprite(const string& n, const Vector2f& pos, const Vector2f& vel,
   frameWidth(frame->getWidth()),
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
-  worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
+  worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+  size(Gamedata::getInstance().getXmlInt(n +"/size"))
 { }
 
 Sprite::Sprite(const Sprite& s) :
@@ -45,7 +48,8 @@ Sprite::Sprite(const Sprite& s) :
   frameWidth(s.getFrame()->getWidth()),
   frameHeight(s.getFrame()->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
-  worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
+  worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+  size(s.size)
 { }
 
 void Sprite::draw() const { 
@@ -70,8 +74,7 @@ void Sprite::update(Uint32 ticks) {
   }
 
   if ( X() < -100) {
-    X(rand()%Gamedata::getInstance().getXmlInt("maxWidth"));
-    Y(rand()%worldHeight);
+    respawn();
     std::cout << "Respawning: " << X() << " " << Y() << std::endl;
   }
   if ( X() > worldWidth-frameWidth) {
@@ -86,4 +89,9 @@ Sprite& Sprite::operator=(const Sprite& s){
   worldWidth = s.worldWidth;
   worldHeight = s.worldHeight;
   return *this;
+}
+
+void Sprite::respawn() {
+  X(rand()%Gamedata::getInstance().getXmlInt("maxWidth"));
+  Y(rand()%worldHeight);
 }

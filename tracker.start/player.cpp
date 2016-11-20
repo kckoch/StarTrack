@@ -27,6 +27,7 @@ Player::Player( const std::string& name) :
            Vector2f(0,0)
            ),
   frames( FrameFactory::getInstance().getFrames(name) ),
+  n(name),
   worldWidth(WORLD_WIDTH),
   worldHeight(WORLD_HEIGHT),
   strategies(),
@@ -39,6 +40,8 @@ Player::Player( const std::string& name) :
   frameHeight(frames[0]->getHeight()),
   xspeed(Gamedata::getInstance().getXmlInt(name+"/speedX")),
   yspeed(Gamedata::getInstance().getXmlInt(name+"/speedY")),
+  health(Gamedata::getInstance().getXmlInt(name+"/health")),
+  damage(Gamedata::getInstance().getXmlInt("damage")),
   movement(0)
   {
       strategies.push_back( new MidPointCollisionStrategy );
@@ -50,6 +53,7 @@ Player::Player( const std::string& name) :
 Player::Player(const Player& s) :
   Drawable(s),
   frames(s.frames),
+  n(s.n),
   worldWidth( s.worldWidth ),
   worldHeight( s.worldHeight ),
   strategies(),
@@ -62,6 +66,8 @@ Player::Player(const Player& s) :
   frameHeight( s.frameHeight ),
   xspeed(s.xspeed),
   yspeed(s.yspeed),
+  health(s.health),
+  damage(s.damage),
   movement(s.movement)
   {
       strategies.push_back( new MidPointCollisionStrategy );
@@ -137,4 +143,16 @@ void Player::update(Uint32 ticks) {
         setPosition(getPosition() + incr);
     }
     
+}
+
+void Player::takeDamage(int size) {
+    health -= damage*size;
+}
+
+void Player::respawn() {
+    setPosition(Vector2f(Gamedata::getInstance().getXmlInt(n+"/startLoc/x"), 
+                         Gamedata::getInstance().getXmlInt(n+"/startLoc/y")));
+    currentFrame = 0;
+    timeSinceLastFrame = 0;
+    health = Gamedata::getInstance().getXmlInt(n+"/health");
 }

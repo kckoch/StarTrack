@@ -15,10 +15,7 @@ public:
     void inUse(const Vector2f pos) {
         avail = false;
         startPos = pos;
-    }
-    void setVelo(int x, int y) {
-        Vector2f velo = getVelocity();
-        setVelocity(Vector2f(abs(velo[0])*x, abs(velo[1])*y));
+        setPosition(pos);
     }
     bool checkDone() { return avail; }
 private:

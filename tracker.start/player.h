@@ -21,10 +21,14 @@ public:
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
   }
-  unsigned getCurrentFrame() { return currentFrame; }
+  unsigned getCurrentFrame() const { return currentFrame; }
+  void takeDamage(int size);
+  int getHealth() const { return health; }
+  virtual void respawn();
 
 private:
   const std::vector<Frame *> frames;
+  const std::string& n;
   int worldWidth;
   int worldHeight;
   std::vector<CollisionStrategy*> strategies;
@@ -37,6 +41,8 @@ private:
   int frameHeight;
   int xspeed;
   int yspeed;
+  int health;
+  int damage;
   
   int movement;
   Player& operator=(const Player&);

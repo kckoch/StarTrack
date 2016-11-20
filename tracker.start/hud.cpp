@@ -16,7 +16,8 @@ Hud::Hud() :
     god(false),
     username(Gamedata::getInstance().getXmlStr("username")),
     title(Gamedata::getInstance().getXmlStr("screenTitle")),
-    frameMax(Gamedata::getInstance().getXmlInt("frameMax")) {}
+    frameMax(Gamedata::getInstance().getXmlInt("frameMax")),
+    health(100) {}
 
 void Hud::draw() const {
     if(show) {
@@ -37,6 +38,7 @@ void Hud::draw() const {
         if(god) {
             io.printStringAfterMessage("God Mode: On", 10, 160);
         }
+        io.printMessageValueAt("Health:", health, 320, 60);
     }
 }
 

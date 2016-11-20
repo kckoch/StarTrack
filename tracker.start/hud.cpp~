@@ -16,7 +16,8 @@ Hud::Hud() :
     god(false),
     username(Gamedata::getInstance().getXmlStr("username")),
     title(Gamedata::getInstance().getXmlStr("screenTitle")),
-    frameMax(Gamedata::getInstance().getXmlInt("frameMax")) {}
+    frameMax(Gamedata::getInstance().getXmlInt("frameMax")),
+    health(100) {}
 
 void Hud::draw() const {
     if(show) {
@@ -34,9 +35,9 @@ void Hud::draw() const {
         Draw_AALine(screen, 0, 0, 0, y, GREY);
         Draw_AALine(screen, 0, y, x, y, GREY);
         Draw_AALine(screen, x, 0, x, y, GREY);
-    }
-    if(god) {
-        io.printStringAfterMessage("God Mode: On", 10, 160);
+        if(god) {
+            io.printStringAfterMessage("God Mode: On", 10, 160);
+        }
     }
 }
 
