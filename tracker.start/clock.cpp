@@ -14,6 +14,10 @@ Clock& Clock::getInstance() {
   return instance;
 }
 
+Clock::~Clock() {
+  delete fps;
+}
+
 Clock::Clock() :
   started(false), 
   paused(false), 

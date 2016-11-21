@@ -6,6 +6,8 @@
 #include "drawable.h"
 #include "collisionStrategy.h"
 
+class ExplodingSprite;
+
 class Player : public Drawable {
 public:
   Player(const std::string&);
@@ -25,10 +27,11 @@ public:
   void takeDamage(int size);
   int getHealth() const { return health; }
   virtual void respawn();
+  virtual void explode();
 
 private:
+  ExplodingSprite *explosion;
   const std::vector<Frame *> frames;
-  std::string& n;
   int worldWidth;
   int worldHeight;
   std::vector<CollisionStrategy*> strategies;

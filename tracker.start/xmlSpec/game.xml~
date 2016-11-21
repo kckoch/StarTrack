@@ -15,7 +15,7 @@
 
 <maxRocks>200</maxRocks>
 <maxWidth>50000</maxWidth>
-<strategy>2</strategy>
+<strategy>1</strategy>
 <damage>15</damage>
 
 <maxBullets>24</maxBullets>
@@ -79,21 +79,29 @@
   <file>images/baseshipmult.bmp</file>
   <startLoc x="3000" y="140"/>
   <frames>2</frames>
+  <size>0</size>
   <frameInterval>40</frameInterval>
   <speedX>-200</speedX>
   <speedY>200</speedY>
-  <health>100</health>
+  <health>50</health>
+  <chunk>
+     <size>15</size>
+     <health>0</health>
+     <distance>100</distance>
+  </chunk>
   <transparency>true</transparency>
 </ship>
 
 <smallblue>
   <file>images/bluerocksmall.bmp</file>
   <size>1</size>
+  <health>2</health>
   <rarity>30</rarity>
   <speedX>-20</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>20</size>
+     <size>7</size>
+     <health>0</health>
      <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
@@ -101,11 +109,13 @@
 <medblue>
   <file>images/bluerockmedium.bmp</file>
   <size>2</size>
+  <health>4</health>
   <rarity>70</rarity>
   <speedX>-50</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>40</size>
+     <size>8</size>
+     <health>0</health>
      <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
@@ -113,11 +123,13 @@
 <bigblue>
   <file>images/bluerocklarge.bmp</file>
   <size>3</size>
+  <health>6</health>
   <rarity>95</rarity>
   <speedX>-100</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>60</size>
+     <size>12</size>
+     <health>0</health>
      <distance>200</distance>
   </chunk>
   <transparency>true</transparency>
@@ -126,11 +138,13 @@
 <smallred>
   <file>images/redrocksmall.bmp</file>
   <size>1</size>
+  <health>2</health>
   <rarity>30</rarity>
   <speedX>-25</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>20</size>
+     <size>7</size>
+     <health>0</health>
      <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
@@ -138,11 +152,13 @@
 <medred>
   <file>images/redrockmedium.bmp</file>
   <size>2</size>
+  <health>4</health>
   <rarity>70</rarity>
   <speedX>-50</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>40</size>
+     <size>8</size>
+     <health>0</health>
      <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
@@ -150,11 +166,13 @@
 <bigred>
   <file>images/redrocklarge.bmp</file>
   <size>3</size>
+  <health>6</health>
   <rarity>95</rarity>
   <speedX>-100</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>60</size>
+     <size>12</size>
+     <health>0</health>
      <distance>200</distance>
   </chunk>
   <transparency>true</transparency>
@@ -163,11 +181,13 @@
 <smallyell>
   <file>images/yellowrocksmall.bmp</file>
   <size>1</size>
+  <health>2</health>
   <rarity>30</rarity>
   <speedX>-25</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>20</size>
+     <size>7</size>
+     <health>0</health>
      <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
@@ -175,11 +195,13 @@
 <medyell>
   <file>images/yellowrockmedium.bmp</file>
   <size>2</size>
+  <health>4</health>
   <rarity>70</rarity>
   <speedX>-50</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>40</size>
+     <size>8</size>
+     <health>0</health>
      <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
@@ -187,11 +209,13 @@
 <bigyell>
   <file>images/yellowrocklarge.bmp</file>
   <size>3</size>
+  <health>6</health>
   <rarity>95</rarity>
   <speedX>-100</speedX>
   <speedY>0</speedY>
   <chunk>
-     <size>60</size>
+     <size>12</size>
+     <health>0</health>
      <distance>200</distance>
   </chunk>
   <transparency>true</transparency>
@@ -200,6 +224,7 @@
 <bullet>
   <file>images/bullet.bmp</file>
   <size>0</size>
+  <health>0</health>
   <distance>1000</distance>
   <speedX>500</speedX>
   <speedY>0</speedY>

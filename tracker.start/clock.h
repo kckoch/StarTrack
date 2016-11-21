@@ -8,6 +8,7 @@ class Manager;
 
 class Clock {
 public:
+  ~Clock();
   static Clock& getInstance();
   unsigned int getTicks() const;
   unsigned int getTotalTicks() const { return sumOfAllTicks; }

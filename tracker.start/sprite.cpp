@@ -5,6 +5,10 @@
 #include "frameFactory.h"
 #include "explodingSprite.h"
 
+Sprite::~Sprite() {
+    delete explosion;
+}
+
 Sprite::Sprite(const std::string& name) :
   Drawable(name,
            Vector2f(3000, 140), 
@@ -17,7 +21,8 @@ Sprite::Sprite(const std::string& name) :
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
-  size(Gamedata::getInstance().getXmlInt(name+"/size"))
+  size(Gamedata::getInstance().getXmlInt(name+"/size")),
+  health(Gamedata::getInstance().getXmlInt(name+"/health"))
 {
     X(rand()%Gamedata::getInstance().getXmlInt("maxWidth"));
     Y(rand()%worldHeight);
@@ -31,7 +36,8 @@ Sprite::Sprite(const string& name, const Vector2f& pos, const Vector2f& vel):
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
-  size(Gamedata::getInstance().getXmlInt(name+"/size"))
+  size(Gamedata::getInstance().getXmlInt(name+"/size")),
+  health(Gamedata::getInstance().getXmlInt(name+"/health"))
 { }
 
 Sprite::Sprite(const string& name, const Vector2f& pos, const Vector2f& vel,
@@ -43,7 +49,8 @@ Sprite::Sprite(const string& name, const Vector2f& pos, const Vector2f& vel,
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
-  size(Gamedata::getInstance().getXmlInt(name +"/size"))
+  size(Gamedata::getInstance().getXmlInt(name +"/size")),
+  health(Gamedata::getInstance().getXmlInt(name+"/health"))
 { }
 
 Sprite::Sprite(const Sprite& s) :
@@ -54,12 +61,9 @@ Sprite::Sprite(const Sprite& s) :
   frameHeight(s.getFrame()->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
-  size(s.size)
+  size(s.size),
+  health(s.health)
 { }
-
-Sprite::~Sprite() {
-  delete explosion;
-}
 
 void Sprite::draw() const {
   if(explosion) {
@@ -109,6 +113,8 @@ Sprite& Sprite::operator=(const Sprite& s){
   frameHeight = s.frameHeight;
   worldWidth = s.worldWidth;
   worldHeight = s.worldHeight;
+  size = s.size;
+  health = s.health;
   return *this;
 }
 
@@ -122,4 +128,10 @@ void Sprite::explode() {
   if(explosion) return;
   explosion = new ExplodingSprite(*this);
   respawn();
+}
+
+void Sprite::takeHit() {
+  health -= 1;
+  if(health == 0)
+    explode();
 }

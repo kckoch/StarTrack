@@ -4,6 +4,13 @@
 #include "gamedata.h"
 #include "frameFactory.h"
 
+Bullet::~Bullet() {
+    for (unsigned i = 0; i < strategies.size(); ++i) {
+        delete strategies[i];
+    }
+    delete strategy;
+}
+
 Bullet::Bullet(const std::string& name) :
         Sprite(name, Vector2f(0,0), Vector2f(
             Gamedata::getInstance().getXmlInt("bullet/speedX"), 
@@ -17,8 +24,15 @@ Bullet::Bullet(const std::string& name) :
         frameWidth(frame->getWidth()),
         frameHeight(frame->getHeight()),
         worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
-        worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
-{}
+        worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+        strategies(),
+        strategy(NULL)
+{
+    strategies.push_back( new MidPointCollisionStrategy );
+    strategies.push_back( new RectangularCollisionStrategy );
+    strategies.push_back( new PerPixelCollisionStrategy );
+    strategy = strategies[Gamedata::getInstance().getXmlInt("strategy")];
+}
 
 Bullet::Bullet(const std::string& name, const Vector2f pos, const Vector2f vel) :
         Sprite(name, pos, vel),
@@ -31,8 +45,15 @@ Bullet::Bullet(const std::string& name, const Vector2f pos, const Vector2f vel) 
         frameWidth(frame->getWidth()),
         frameHeight(frame->getHeight()),
         worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
-        worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
-{}
+        worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+        strategies(),
+        strategy(NULL)
+{
+    strategies.push_back( new MidPointCollisionStrategy );
+    strategies.push_back( new RectangularCollisionStrategy );
+    strategies.push_back( new PerPixelCollisionStrategy );
+    strategy = strategies[Gamedata::getInstance().getXmlInt("strategy")];
+}
 
 Bullet::Bullet(const Bullet& b) :
     Sprite(b),
@@ -45,7 +66,9 @@ Bullet::Bullet(const Bullet& b) :
     frameWidth(b.getFrame()->getWidth()),
     frameHeight(b.getFrame()->getHeight()),
     worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
-    worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
+    worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+    strategies(b.strategies),
+    strategy(b.strategy)
 { }
 
 void Bullet::draw() const { 

@@ -67,7 +67,6 @@ void Clock::display() {
 }
 double Clock::getFPS() {
     fps[ndx%fpsmax] = (double) SDL_GetTicks()/1000;
-    std::cout << fps[ndx%fpsmax] << std::endl;
     ndx++;
     if(ndx == fpsmax) {
         ndx = 0;

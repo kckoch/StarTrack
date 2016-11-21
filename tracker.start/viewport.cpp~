@@ -2,6 +2,10 @@
 #include "ioManager.h"
 #include "viewport.h"
 
+Viewport::~Viewport() {
+  delete objectToTrack;
+}
+
 Viewport& Viewport::getInstance() {
   static Viewport viewport;
   return viewport;
@@ -25,8 +29,7 @@ void Viewport::setObjectToTrack(const Drawable *obj) {
 }
 
 void Viewport::draw() const {
-  IOManager::getInstance().
-    printMessageCenteredAt("Tracking "+objectToTrack->getName(), 30);
+  
 }
 
 void Viewport::update() {

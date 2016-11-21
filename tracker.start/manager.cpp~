@@ -17,6 +17,15 @@ Manager::~Manager() {
   for (unsigned i = 0; i < sprites.size(); ++i) {
     delete sprites[i];
   }
+  for(std::list<Bullet*>::iterator it = freeBull.begin(); it != freeBull.end(); it++) {
+    delete (*it);
+    it = freeBull.erase(it);
+  }
+  for(std::list<Bullet*>::iterator it = inUse.begin(); it != inUse.end(); it++) {
+    delete (*it);
+    it = inUse.erase(it);
+  }
+  delete player;
 }
 
 Manager::Manager() :
@@ -78,23 +87,28 @@ Manager::Manager() :
   for(int i = 0; i < maxRocks/Gamedata::getInstance().getXmlInt("bigyell/rarity"); i++) {
     sprites.push_back(new Sprite("bigyell"));
   }
-  for(int i = 0; i < Gamedata::getInstance().getXmlInt("maxBullets"); i++) {
+  /*for(int i = 0; i < Gamedata::getInstance().getXmlInt("maxBullets"); i++) {
     freeBull.push_back(new Bullet("bullet"));
-  }
+  }*/
   viewport.setObjectToTrack(player);
 }
 
-bool Manager::checkForCollisions() {
+void Manager::checkForCollisions() {
   std::vector<Sprite*>::iterator sprite = sprites.begin();
   while ( sprite != sprites.end() ) {
+    for(std::list<Bullet*>::iterator bull = inUse.begin(); bull != inUse.end(); bull++) {
+       if((*bull)->collidedWith(*sprite)) {
+          (*sprite)->takeHit();
+          freeBull.push_back(*bull);
+          bull = inUse.erase(bull);
+       }
+    }
     if ( player->collidedWith(*sprite) ) {
+        player->takeDamage((*sprite)->getSize());
         (*sprite)->explode();
-        //std::cout << "exploded" << std::endl;
-        return true;
     }
     ++sprite;
   }
-  return false;
 }
 
 void Manager::draw() const {
@@ -105,19 +119,13 @@ void Manager::draw() const {
   for (unsigned i = 0; i < sprites.size(); ++i) {
     sprites[i]->draw();
   }
-  //int i = 0;
   for(std::list<Bullet*>::const_iterator it = inUse.begin(); it != inUse.end(); it++) {
     (*it)->draw();
-    //io.printMessageValueAt("X: ", (*it)->X(), 500, 20+i*20);
-    //io.printMessageValueAt("Y: ", (*it)->Y(), 600, 20+i*20);
-    //i++;
   }
-
   io.printMessageValueAt("FreeList: ", freeBull.size(), 320, 20);
   io.printMessageValueAt("InUse: ", inUse.size(), 320, 40);
-  //io.printMessageValueAt("X: ", player->X(), 320, 80);
-  //io.printMessageValueAt("Y: ", player->Y(), 390, 80);
   player->draw();
+  hud.setHealth(player->getHealth());
   hud.draw();
   viewport.draw();
 
@@ -156,9 +164,7 @@ void Manager::update() {
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
   }
-  if ( checkForCollisions() ) {
-    hud.setHealth(player->getHealth());
-  }
+  checkForCollisions();
   if(clock.getSeconds() == hideAfter) {
     hud.setShow(false);
   }
@@ -248,11 +254,11 @@ void Manager::play() {
           for (unsigned i = 0; i < sprites.size(); ++i) {
             sprites[i]->respawn();
           }
-          player->respawn();
           for(std::list<Bullet*>::iterator it = inUse.begin(); it != inUse.end(); it++) {
             freeBull.push_back(*it);
             it = inUse.erase(it);
           }
+          player->respawn();
           hud.setHealth(player->getHealth());
         }
       }

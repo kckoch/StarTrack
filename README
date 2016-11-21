@@ -1,0 +1,15 @@
+Name: Kyra Koch
+Clemson Email Address: kckoch@clemson.edu
+Course number: 4160
+
+Project no: 5
+Project due date: November 22, 2016
+
+Project description:
+In this project, I have two lists of bullets: available bullets and bullet that are currently being drawn.  If a rock collides with a bullet, the rock loses some "health".  If the rock loses too much health, it explodes.  The same can be said for the player.  If the player collides with too many rocks, it'll lose health and eventually explode.  I might have it where if a rock explodes, it spawn smaller resource chunks, but we'll see.  By clicking r, you reset the player.
+
+Extra Contribution: I drew my own sprites.
+
+Problems with this project:
+If you fire bullets and move, sometimes the bullets get skewed.
+
