@@ -46,6 +46,9 @@ public:
   virtual bool collidedWith(const Drawable*) { 
     throw std::string("No collidedWith");  
   }
+  virtual void explode() {
+    throw std::string("Can't explode");
+  }
   virtual int getSize() const { return 0; }
   virtual void respawn() {}
 

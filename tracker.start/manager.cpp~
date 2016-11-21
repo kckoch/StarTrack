@@ -35,7 +35,6 @@ Manager::Manager() :
   freeBull(),
   inUse(),
   collSize(),
-  exploding(),
   makeVideo( false ),
   god(false),
   frameCount( 0 ),
@@ -89,9 +88,8 @@ bool Manager::checkForCollisions() {
   std::vector<Sprite*>::iterator sprite = sprites.begin();
   while ( sprite != sprites.end() ) {
     if ( player->collidedWith(*sprite) ) {
-        player->takeDamage((*sprite)->getSize());
-        sprites.push_back(new ExplodingSprite(*(*sprite)));
-        (*sprite)->respawn();
+        (*sprite)->explode();
+        //std::cout << "exploded" << std::endl;
         return true;
     }
     ++sprite;
@@ -114,17 +112,12 @@ void Manager::draw() const {
     //io.printMessageValueAt("Y: ", (*it)->Y(), 600, 20+i*20);
     //i++;
   }
-  for(std::list<ExplodingSprite*>::const_iterator it = exploding.begin(); it != exploding.end(); it++) {
-    (*it)->draw();
-  }
+
   io.printMessageValueAt("FreeList: ", freeBull.size(), 320, 20);
   io.printMessageValueAt("InUse: ", inUse.size(), 320, 40);
   //io.printMessageValueAt("X: ", player->X(), 320, 80);
   //io.printMessageValueAt("Y: ", player->Y(), 390, 80);
   player->draw();
-  if ( checkForCollisions() ) {
-    hud.setHealth(player->getHealth());
-  }
   hud.draw();
   viewport.draw();
 
@@ -160,13 +153,11 @@ void Manager::update() {
       it = inUse.erase(it);
     }
   }
-  for(std::list<ExplodingSprite*>::iterator it = exploding.begin(); it != exploding.end(); it++) {
-    if((*it)->chunkCount() == 0){
-      it = exploding.erase(it);
-    }
-  }
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
+  }
+  if ( checkForCollisions() ) {
+    hud.setHealth(player->getHealth());
   }
   if(clock.getSeconds() == hideAfter) {
     hud.setShow(false);

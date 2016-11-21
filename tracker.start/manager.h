@@ -35,7 +35,6 @@ private:
   std::list<Bullet*> freeBull;
   std::list<Bullet*> inUse;
   std::vector<int> collSize;
-  std::list<ExplodingSprite*> exploding;
 
   bool makeVideo;
   bool god;

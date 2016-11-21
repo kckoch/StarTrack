@@ -94,7 +94,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>20</size>
-     <distance>50</distance>
+     <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
 </smallblue>
@@ -106,7 +106,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>40</size>
-     <distance>100</distance>
+     <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
 </medblue>
@@ -131,7 +131,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>20</size>
-     <distance>50</distance>
+     <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
 </smallred>
@@ -143,7 +143,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>40</size>
-     <distance>100</distance>
+     <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
 </medred>
@@ -168,7 +168,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>20</size>
-     <distance>50</distance>
+     <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
 </smallyell>
@@ -180,7 +180,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>40</size>
-     <distance>100</distance>
+     <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
 </medyell>

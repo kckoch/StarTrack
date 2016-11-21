@@ -15,7 +15,7 @@
 
 <maxRocks>200</maxRocks>
 <maxWidth>50000</maxWidth>
-<strategy>2</strategy>
+<strategy>1</strategy>
 <damage>15</damage>
 
 <maxBullets>24</maxBullets>
@@ -94,7 +94,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>20</size>
-     <distance>10</distance>
+     <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
 </smallblue>
@@ -106,7 +106,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>40</size>
-     <distance>25</distance>
+     <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
 </medblue>
@@ -118,7 +118,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>60</size>
-     <distance>50</distance>
+     <distance>200</distance>
   </chunk>
   <transparency>true</transparency>
 </bigblue>
@@ -131,7 +131,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>20</size>
-     <distance>10</distance>
+     <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
 </smallred>
@@ -143,7 +143,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>40</size>
-     <distance>25</distance>
+     <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
 </medred>
@@ -155,7 +155,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>60</size>
-     <distance>50</distance>
+     <distance>200</distance>
   </chunk>
   <transparency>true</transparency>
 </bigred>
@@ -168,7 +168,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>20</size>
-     <distance>10</distance>
+     <distance>100</distance>
   </chunk>
   <transparency>true</transparency>
 </smallyell>
@@ -180,7 +180,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>40</size>
-     <distance>25</distance>
+     <distance>150</distance>
   </chunk>
   <transparency>true</transparency>
 </medyell>
@@ -192,7 +192,7 @@
   <speedY>0</speedY>
   <chunk>
      <size>60</size>
-     <distance>50</distance>
+     <distance>200</distance>
   </chunk>
   <transparency>true</transparency>
 </bigyell>

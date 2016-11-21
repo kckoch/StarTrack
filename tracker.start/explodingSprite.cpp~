@@ -5,9 +5,11 @@
 
 ExplodingSprite::ExplodingSprite(const Sprite& s) :
   Sprite(s), chunks(), freeList(), surfaces(), frames() {
+  std::cout << "about to make chunks" << std::endl;
   makeChunks(
     Gamedata::getInstance().getXmlInt(s.getName()+"/chunk/size")
   );
+  std::cout << "made chunks\nchunk list size: " << chunkCount() << std::endl;
 }
 
 ExplodingSprite::~ExplodingSprite() { 
