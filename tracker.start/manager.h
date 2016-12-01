@@ -9,6 +9,7 @@
 #include "bullet.h"
 #include "explodingSprite.h"
 #include "hud.h"
+#include "sound.h"
 
 class Manager {
 public:
@@ -21,6 +22,7 @@ private:
   const bool env;
   const IOManager& io;
   Clock& clock;
+  SDLSound& sound;
 
   SDL_Surface * const screen;
   World space;

@@ -84,8 +84,8 @@
   <speedX>-200</speedX>
   <speedY>200</speedY>
   <health>100</health>
-  <red>-200</red>
-  <blue>200</blue>
+  <red>100</red>
+  <blue>100</blue>
   <yellow>100</yellow>
   <chunk>
      <size>15</size>

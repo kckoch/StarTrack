@@ -32,6 +32,7 @@ Manager::Manager() :
   env( SDL_putenv(const_cast<char*>("SDL_VIDEO_CENTERED=center")) ),
   io( IOManager::getInstance() ),
   clock( Clock::getInstance() ),
+  sound(SDLSound::getInstance()),
   screen( io.getScreen() ),
   space("space", Gamedata::getInstance().getXmlInt("space/factor") ),
   star1("star1", Gamedata::getInstance().getXmlInt("star1/factor") ),
@@ -104,6 +105,7 @@ void Manager::checkForCollisions() {
                   player->gainRed((*sprite)->getSize()*10);
               else if (sprname == "smallyell" || sprname == "medyell" || sprname == "bigyell")
                   player->gainYellow((*sprite)->getSize()*10);
+              sound[1];
           }
           freeBull.push_back(*bull);
           bull = inUse.erase(bull);
@@ -112,6 +114,7 @@ void Manager::checkForCollisions() {
     if ( player->collidedWith(*sprite) ) {
         player->takeDamage((*sprite)->getSize());
         (*sprite)->explode();
+        sound[1];
     }
     ++sprite;
   }
@@ -258,6 +261,7 @@ void Manager::play() {
           (*it)->setVelo(xVel, 0);
           inUse.push_back(*it);
           it = freeBull.erase(it);
+          sound[0];
         }
         if (keystate[SDLK_r]) {
           for (unsigned i = 0; i < sprites.size(); ++i) {
