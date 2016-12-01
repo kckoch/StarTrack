@@ -8,7 +8,6 @@ Bullet::~Bullet() {
     for (unsigned i = 0; i < strategies.size(); ++i) {
         delete strategies[i];
     }
-    delete strategy;
 }
 
 Bullet::Bullet(const std::string& name) :

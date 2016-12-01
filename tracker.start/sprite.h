@@ -21,6 +21,7 @@ public:
   void respawn();
   void explode();
   void takeHit();
+  bool checkExplosion();
 
 private:
   ExplodingSprite *explosion;

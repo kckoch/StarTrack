@@ -87,9 +87,6 @@ Manager::Manager() :
   for(int i = 0; i < maxRocks/Gamedata::getInstance().getXmlInt("bigyell/rarity"); i++) {
     sprites.push_back(new Sprite("bigyell"));
   }
-  /*for(int i = 0; i < Gamedata::getInstance().getXmlInt("maxBullets"); i++) {
-    freeBull.push_back(new Bullet("bullet"));
-  }*/
   viewport.setObjectToTrack(player);
 }
 
@@ -99,6 +96,15 @@ void Manager::checkForCollisions() {
     for(std::list<Bullet*>::iterator bull = inUse.begin(); bull != inUse.end(); bull++) {
        if((*bull)->collidedWith(*sprite)) {
           (*sprite)->takeHit();
+          if((*sprite)->checkExplosion()){
+              std::string sprname = (*sprite)->getName();
+              if(sprname == "smallblue" || sprname == "medblue" || sprname == "bigblue")
+                  player->gainBlue((*sprite)->getSize()*10);
+              else if (sprname == "smallred" || sprname == "medred" || sprname == "bigred")
+                  player->gainRed((*sprite)->getSize()*10);
+              else if (sprname == "smallyell" || sprname == "medyell" || sprname == "bigyell")
+                  player->gainYellow((*sprite)->getSize()*10);
+          }
           freeBull.push_back(*bull);
           bull = inUse.erase(bull);
        }
@@ -126,6 +132,9 @@ void Manager::draw() const {
   io.printMessageValueAt("InUse: ", inUse.size(), 320, 40);
   player->draw();
   hud.setHealth(player->getHealth());
+  hud.setRed(player->getRed());
+  hud.setBlue(player->getBlue());
+  hud.setYellow(player->getYellow());
   hud.draw();
   viewport.draw();
 

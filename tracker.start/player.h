@@ -5,6 +5,7 @@
 #include "sprite.h"
 #include "drawable.h"
 #include "collisionStrategy.h"
+#include "clock.h"
 
 class ExplodingSprite;
 
@@ -25,6 +26,12 @@ public:
   }
   unsigned getCurrentFrame() const { return currentFrame; }
   void takeDamage(int size);
+  void gainRed(int redin);
+  void gainBlue(int bluein);
+  void gainYellow(int yellin);
+  int getRed() const { return red; }
+  int getBlue() const { return blue; }
+  int getYellow() const { return yellow; }
   int getHealth() const { return health; }
   virtual void respawn();
   virtual void explode();
@@ -32,6 +39,7 @@ public:
 private:
   ExplodingSprite *explosion;
   const std::vector<Frame *> frames;
+  unsigned int elapsedTicks;
   int worldWidth;
   int worldHeight;
   std::vector<CollisionStrategy*> strategies;
@@ -46,6 +54,10 @@ private:
   int yspeed;
   int health;
   int damage;
+  int red;
+  int blue;
+  int yellow;
+  int maxLevel;
   
   int movement;
   Player& operator=(const Player&);

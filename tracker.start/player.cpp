@@ -7,7 +7,6 @@ Player::~Player() {
   for (unsigned i = 0; i < strategies.size(); ++i) {
     delete strategies[i];
   }
-  delete strategy;
   delete explosion;
 }
 
@@ -31,6 +30,7 @@ Player::Player( const std::string& name) :
            ),
   explosion(NULL),
   frames( FrameFactory::getInstance().getFrames(name) ),
+  elapsedTicks(0),
   worldWidth(WORLD_WIDTH),
   worldHeight(WORLD_HEIGHT),
   strategies(),
@@ -45,6 +45,10 @@ Player::Player( const std::string& name) :
   yspeed(Gamedata::getInstance().getXmlInt(name+"/speedY")),
   health(Gamedata::getInstance().getXmlInt(name+"/health")),
   damage(Gamedata::getInstance().getXmlInt("damage")),
+  red(Gamedata::getInstance().getXmlInt(name+"/red")),
+  blue(Gamedata::getInstance().getXmlInt(name+"/yellow")),
+  yellow(Gamedata::getInstance().getXmlInt(name+"/blue")),
+  maxLevel(Gamedata::getInstance().getXmlInt(name+"/blue")),
   movement(0)
   {
       strategies.push_back( new MidPointCollisionStrategy );
@@ -57,6 +61,7 @@ Player::Player(const Player& s) :
   Drawable(s),
   explosion(s.explosion),
   frames(s.frames),
+  elapsedTicks(s.elapsedTicks),
   worldWidth( s.worldWidth ),
   worldHeight( s.worldHeight ),
   strategies(),
@@ -71,6 +76,10 @@ Player::Player(const Player& s) :
   yspeed(s.yspeed),
   health(s.health),
   damage(s.damage),
+  red(s.red),
+  blue(s.blue),
+  yellow(s.yellow),
+  maxLevel(s.maxLevel),
   movement(s.movement)
   {
       strategies.push_back( new MidPointCollisionStrategy );
@@ -132,6 +141,17 @@ void Player::updateMovement(int movement) {
 
 void Player::update(Uint32 ticks) { 
     advanceFrame(ticks);
+    
+    elapsedTicks += ticks;
+    if(elapsedTicks > 4000) {
+        red -= 10;
+        blue -= 10;
+        yellow -= 10;
+        elapsedTicks = 0;
+        if(red <= 0 || blue <= 0 || yellow <= 0)
+            explode();
+    }
+    
     if(explosion) {
         explosion->update(ticks);
         if(explosion->chunkCount()==0) {
@@ -167,12 +187,30 @@ void Player::takeDamage(int size) {
         explode();
 }
 
+void Player::gainRed(int redin) {
+    red += redin;
+    if(red > maxLevel) red = maxLevel;
+}
+
+void Player::gainBlue(int bluein) {
+    blue += bluein;
+    if(blue > maxLevel) blue = maxLevel;
+}
+
+void Player::gainYellow(int yellin) {
+    yellow += yellin;
+    if(yellow > maxLevel) yellow = maxLevel;
+}
+
 void Player::respawn() {
     setPosition(Vector2f(Gamedata::getInstance().getXmlInt(getName()+"/startLoc/x"), 
                          Gamedata::getInstance().getXmlInt(getName()+"/startLoc/y")));
     currentFrame = 0;
     timeSinceLastFrame = 0;
     health = Gamedata::getInstance().getXmlInt(getName()+"/health");
+    red = Gamedata::getInstance().getXmlInt(getName()+"/red");
+    blue = Gamedata::getInstance().getXmlInt(getName()+"/yellow");
+    yellow = Gamedata::getInstance().getXmlInt(getName()+"/blue");
 }
 
 void Player::explode() {

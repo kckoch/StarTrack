@@ -7,7 +7,7 @@ class ExplodingSprite;
 
 class Sprite : public Drawable {
 public:
-  ~Sprite();
+  virtual ~Sprite();
   Sprite(const std::string&);
   Sprite(const std::string&, const Vector2f& pos, const Vector2f& vel);
   Sprite(const std::string&, 

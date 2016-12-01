@@ -121,13 +121,17 @@ Sprite& Sprite::operator=(const Sprite& s){
 void Sprite::respawn() {
   X(rand()%Gamedata::getInstance().getXmlInt("maxWidth"));
   Y(rand()%worldHeight);
-  std::cout << "Respawning: " << X() << " " << Y() << std::endl;
 }
 
 void Sprite::explode() {
   if(explosion) return;
   explosion = new ExplodingSprite(*this);
   respawn();
+}
+
+bool Sprite::checkExplosion() {
+  if(explosion) return true;
+  return false;
 }
 
 void Sprite::takeHit() {

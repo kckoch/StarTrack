@@ -83,7 +83,10 @@
   <frameInterval>40</frameInterval>
   <speedX>-200</speedX>
   <speedY>200</speedY>
-  <health>50</health>
+  <health>100</health>
+  <red>-200</red>
+  <blue>200</blue>
+  <yellow>100</yellow>
   <chunk>
      <size>15</size>
      <health>0</health>
