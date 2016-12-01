@@ -14,6 +14,8 @@ public:
     void setRed(int redin) { red = redin; }
     void setBlue(int bluein) { blue = bluein; }
     void setYellow(int yellin) { yell = yellin; }
+    void setFree(int freein) { free = freein; }
+    void setUse(int bullin) { bull = bullin; }
 private:
     const IOManager& io;
     SDL_Surface * const screen;
@@ -29,6 +31,8 @@ private:
     int red;
     int blue;
     int yell;
+    int free;
+    int bull;
     
     Hud();
     Hud(const Hud &h);

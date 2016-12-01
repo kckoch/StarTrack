@@ -111,9 +111,10 @@ void Manager::checkForCollisions() {
           bull = inUse.erase(bull);
        }
     }
-    if ( player->collidedWith(*sprite) ) {
+    if (player->collidedWith(*sprite) && !god) {
         player->takeDamage((*sprite)->getSize());
         (*sprite)->explode();
+        sound[1];
     }
     ++sprite;
   }

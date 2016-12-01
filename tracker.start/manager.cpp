@@ -111,7 +111,7 @@ void Manager::checkForCollisions() {
           bull = inUse.erase(bull);
        }
     }
-    if ( player->collidedWith(*sprite) ) {
+    if (player->collidedWith(*sprite) && !god) {
         player->takeDamage((*sprite)->getSize());
         (*sprite)->explode();
         sound[1];
@@ -131,9 +131,10 @@ void Manager::draw() const {
   for(std::list<Bullet*>::const_iterator it = inUse.begin(); it != inUse.end(); it++) {
     (*it)->draw();
   }
-  io.printMessageValueAt("FreeList: ", freeBull.size(), 320, 20);
-  io.printMessageValueAt("InUse: ", inUse.size(), 320, 40);
+  
   player->draw();
+  hud.setFree(freeBull.size());
+  hud.setUse(inUse.size());
   hud.setHealth(player->getHealth());
   hud.setRed(player->getRed());
   hud.setBlue(player->getBlue());

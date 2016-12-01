@@ -21,7 +21,9 @@ Hud::Hud() :
     health(100),
     red(100),
     blue(100),
-    yell(100) {}
+    yell(100),
+    free(0),
+    bull(0) {}
 
 void Hud::draw() const {
     if(show) {
@@ -51,7 +53,6 @@ void Hud::draw() const {
         if(god) {
             io.printStringAfterMessage("God Mode: On", 10, 160);
         }
-        io.printMessageValueAt("Health:", health, 320, 60);
     }
 }
 
