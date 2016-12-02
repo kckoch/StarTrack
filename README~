@@ -13,5 +13,5 @@ Standard movement of WASD and toggling the HUD is F1.  There are sounds, so use 
 Extra Contribution: I drew my own sprites.
 
 Problems with this project:
-Sometimes the bullets get skewed.  There might be an issue where a rock doesn't explode even when you shoot it.  Also sound does not play if you explode from taking too much damage.
+Sometimes the bullets get skewed.  There might be an issue where a rock doesn't explode even when you shoot it.
 
