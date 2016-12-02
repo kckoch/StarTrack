@@ -175,7 +175,10 @@ void Player::update(Uint32 ticks) {
     if ( X() < 0) {
         X(0);
         velocityX(0);
-    } else {
+    } else if (X() > worldWidth-frameWidth) {
+        velocityX(0); 
+        X(worldHeight-frameHeight);
+    }else {
         setPosition(getPosition() + incr);
     }
     

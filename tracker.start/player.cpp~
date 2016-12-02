@@ -183,8 +183,10 @@ void Player::update(Uint32 ticks) {
 
 void Player::takeDamage(int size) {
     health -= damage*size;
-    if(health <= 0)
+    if(health <= 0) {
+        health = 0;
         explode();
+    }
 }
 
 void Player::gainRed(int redin) {

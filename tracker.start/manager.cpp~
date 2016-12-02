@@ -103,7 +103,11 @@ void Manager::checkForCollisions() {
   while ( sprite != sprites.end() ) {
     for(std::list<Bullet*>::iterator bull = inUse.begin(); bull != inUse.end(); bull++) {
        if((*bull)->collidedWith(*sprite)) {
+          std::cout << "before hit: " << (*sprite)->getHealth() << std::endl;
+          std::cout.flush();
           (*sprite)->takeHit();
+          std::cout << "after hit: " << (*sprite)->getHealth() << std::endl;
+          std::cout.flush();
           if((*sprite)->checkExplosion()){
               std::string sprname = (*sprite)->getName();
               if(sprname == "smallblue" || sprname == "medblue" || sprname == "bigblue")
@@ -125,7 +129,7 @@ void Manager::checkForCollisions() {
     }
     ++sprite;
   }
-  std::vector<Sprite*>::iterator special = smarties.begin();
+  std::vector<SmartSprite*>::iterator special = smarties.begin();
   while ( special != smarties.end() ) {
     for(std::list<Bullet*>::iterator bull = inUse.begin(); bull != inUse.end(); bull++) {
        if((*bull)->collidedWith(*special)) {

@@ -14,7 +14,7 @@
 <hideHudAfter>3</hideHudAfter>
 
 <maxRocks>200</maxRocks>
-<maxWidth>30000</maxWidth>
+<maxWidth>15000</maxWidth>
 <strategy>1</strategy>
 <damage>15</damage>
 
@@ -26,7 +26,7 @@
 </view>
 
 <world>
-  <width>30000</width>
+  <width>1500</width>
   <height>960</height>
 </world>
 
@@ -229,8 +229,8 @@
   <size>5</size>
   <health>6</health>
   <rarity>3</rarity>
-  <speedX>-250</speedX>
-  <speedY>250</speedY>
+  <speedX>-225</speedX>
+  <speedY>225</speedY>
   <safedist>200</safedist>
   <chunk>
      <size>12</size>

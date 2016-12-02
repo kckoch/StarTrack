@@ -93,7 +93,7 @@ bool SmartSprite::checkExplosion() {
 
 void SmartSprite::takeHit() {
   health -= 1;
-  if(health == 0)
+  if(health <= 0)
     explode();
 }
 

@@ -14,7 +14,7 @@
 <hideHudAfter>3</hideHudAfter>
 
 <maxRocks>200</maxRocks>
-<maxWidth>30000</maxWidth>
+<maxWidth>16000</maxWidth>
 <strategy>1</strategy>
 <damage>15</damage>
 
@@ -26,7 +26,7 @@
 </view>
 
 <world>
-  <width>30000</width>
+  <width>16000</width>
   <height>960</height>
 </world>
 

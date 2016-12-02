@@ -22,6 +22,7 @@ public:
   void explode();
   void takeHit();
   bool checkExplosion();
+  int getHealth() {return health;}
 
 private:
   ExplodingSprite *explosion;

@@ -121,6 +121,7 @@ Sprite& Sprite::operator=(const Sprite& s){
 void Sprite::respawn() {
   X(rand()%Gamedata::getInstance().getXmlInt("maxWidth"));
   Y(rand()%worldHeight);
+  health = Gamedata::getInstance().getXmlInt(getName()+"/health");
 }
 
 void Sprite::explode() {
@@ -136,6 +137,6 @@ bool Sprite::checkExplosion() {
 
 void Sprite::takeHit() {
   health -= 1;
-  if(health == 0)
+  if(health <= 0)
     explode();
 }

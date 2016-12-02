@@ -83,8 +83,6 @@ void SmartSprite::respawn() {
 void SmartSprite::explode() {
   if(explosion) return;
   explosion = new ExplodingSprite(*this);
-  std::cout << "player x: " << playerPos[0] << " y: " << playerPos[1] << std::endl;
-  std::cout << "expl x: " << explosion->X() << " y: " << explosion->Y() << std::endl;
   respawn();
 }
 
