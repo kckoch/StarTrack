@@ -14,7 +14,7 @@
 <hideHudAfter>3</hideHudAfter>
 
 <maxRocks>200</maxRocks>
-<maxWidth>50000</maxWidth>
+<maxWidth>30000</maxWidth>
 <strategy>1</strategy>
 <damage>15</damage>
 
@@ -26,7 +26,7 @@
 </view>
 
 <world>
-  <width>90000</width>
+  <width>30000</width>
   <height>960</height>
 </world>
 
@@ -223,6 +223,22 @@
   </chunk>
   <transparency>true</transparency>
 </bigyell>
+
+<specialrock>
+  <file>images/specialrock.bmp</file>
+  <size>5</size>
+  <health>6</health>
+  <rarity>3</rarity>
+  <speedX>-250</speedX>
+  <speedY>250</speedY>
+  <safedist>200</safedist>
+  <chunk>
+     <size>12</size>
+     <health>0</health>
+     <distance>200</distance>
+  </chunk>
+  <transparency>true</transparency>
+</specialrock>
 
 <bullet>
   <file>images/bullet.bmp</file>

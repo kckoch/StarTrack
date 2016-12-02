@@ -224,6 +224,22 @@
   <transparency>true</transparency>
 </bigyell>
 
+<specialrock>
+  <file>images/specialrock.bmp</file>
+  <size>5</size>
+  <health>6</health>
+  <rarity>3</rarity>
+  <speedX>-225</speedX>
+  <speedY>225</speedY>
+  <safedist>200</safedist>
+  <chunk>
+     <size>12</size>
+     <health>0</health>
+     <distance>200</distance>
+  </chunk>
+  <transparency>true</transparency>
+</specialrock>
+
 <bullet>
   <file>images/bullet.bmp</file>
   <size>0</size>

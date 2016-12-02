@@ -10,6 +10,7 @@
 #include "explodingSprite.h"
 #include "hud.h"
 #include "sound.h"
+#include "smartSprite.h"
 
 class Manager {
 public:
@@ -34,6 +35,7 @@ private:
 
   Player *player;
   std::vector<Sprite*> sprites;
+  std::vector<SmartSprite*> smarties;
   std::list<Bullet*> freeBull;
   std::list<Bullet*> inUse;
   std::vector<int> collSize;

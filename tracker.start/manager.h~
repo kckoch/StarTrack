@@ -10,6 +10,7 @@
 #include "explodingSprite.h"
 #include "hud.h"
 #include "sound.h"
+#include "smartSprite.h"
 
 class Manager {
 public:
@@ -22,7 +23,7 @@ private:
   const bool env;
   const IOManager& io;
   Clock& clock;
-  static SDLSound sound;
+  SDLSound& sound;
 
   SDL_Surface * const screen;
   World space;

@@ -17,6 +17,9 @@ Manager::~Manager() {
   for (unsigned i = 0; i < sprites.size(); ++i) {
     delete sprites[i];
   }
+  for(unsigned i = 0; i < smarties.size(); ++i) {
+    delete smarties[i];
+  }
   for(std::list<Bullet*>::iterator it = freeBull.begin(); it != freeBull.end();) {
     delete (*it);
     it = freeBull.erase(it);
@@ -42,6 +45,7 @@ Manager::Manager() :
   viewport( Viewport::getInstance() ),
   player(),
   sprites(),
+  smarties(),
   freeBull(),
   inUse(),
   collSize(),
@@ -88,6 +92,9 @@ Manager::Manager() :
   for(int i = 0; i < maxRocks/Gamedata::getInstance().getXmlInt("bigyell/rarity"); i++) {
     sprites.push_back(new Sprite("bigyell"));
   }
+  for(int i = 0; i < Gamedata::getInstance().getXmlInt("specialrock/rarity"); i++) {
+    smarties.push_back(new SmartSprite("specialrock", 100, 73));
+  }
   viewport.setObjectToTrack(player);
 }
 
@@ -118,6 +125,28 @@ void Manager::checkForCollisions() {
     }
     ++sprite;
   }
+  std::vector<Sprite*>::iterator special = smarties.begin();
+  while ( special != smarties.end() ) {
+    for(std::list<Bullet*>::iterator bull = inUse.begin(); bull != inUse.end(); bull++) {
+       if((*bull)->collidedWith(*special)) {
+          (*special)->takeHit();
+          if((*special)->checkExplosion()){
+              player->gainBlue((*special)->getSize()*10);
+              player->gainRed((*special)->getSize()*10);
+              player->gainYellow((*special)->getSize()*10);
+              sound[1];
+          }
+          freeBull.push_back(*bull);
+          bull = inUse.erase(bull);
+       }
+    }
+    if (player->collidedWith(*special) && !god) {
+        player->takeDamage((*special)->getSize());
+        (*special)->explode();
+        sound[1];
+    }
+    ++special;
+  }
 }
 
 void Manager::draw() const {
@@ -128,12 +157,16 @@ void Manager::draw() const {
   for (unsigned i = 0; i < sprites.size(); ++i) {
     sprites[i]->draw();
   }
+  for(unsigned i = 0; i < smarties.size(); ++i) {
+    smarties[i]->draw();
+  }
   for(std::list<Bullet*>::const_iterator it = inUse.begin(); it != inUse.end(); it++) {
     (*it)->draw();
   }
-  io.printMessageValueAt("FreeList: ", freeBull.size(), 320, 20);
-  io.printMessageValueAt("InUse: ", inUse.size(), 320, 40);
+  
   player->draw();
+  hud.setFree(freeBull.size());
+  hud.setUse(inUse.size());
   hud.setHealth(player->getHealth());
   hud.setRed(player->getRed());
   hud.setBlue(player->getBlue());
@@ -163,8 +196,17 @@ void Manager::update() {
     lastSeconds = clock.getSeconds();
   }
   player->update(ticks);
+  if(god) {
+    player->gainRed(100);
+    player->gainBlue(100);
+    player->gainYellow(100);
+  }
   for (unsigned int i = 0; i < sprites.size(); ++i) {
     sprites[i]->update(ticks);
+  }
+  for(unsigned int i = 0; i < smarties.size(); ++i) {
+    smarties[i]->setPlayerPos(player->getPosition());
+    smarties[i]->update(ticks);
   }
   for(std::list<Bullet*>::iterator it = inUse.begin(); it != inUse.end(); it++) {
     (*it)->update(ticks);
