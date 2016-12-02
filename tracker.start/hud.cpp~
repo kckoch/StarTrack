@@ -45,7 +45,6 @@ void Hud::draw() const {
         Draw_AALine(screen, 760, 80, 760, 10, 25, 211, 211, 211, 50);
         Draw_AALine(screen, 790, 80, 790, 10, 25, 211, 211, 211, 50);
         Draw_AALine(screen, 820, 80, 820, 10, 25, 211, 211, 211, 50);
-        
         Draw_AALine(screen, 730, 80, 730, 80-(health*70)/100, 25, 211, 211, 211, 255);
         Draw_AALine(screen, 760, 80, 760, 80-(red*70)/100, 25, 211, 0, 0, 255);
         Draw_AALine(screen, 790, 80, 790, 80-(yell*70)/100, 25, 211, 211, 0, 255);

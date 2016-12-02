@@ -78,7 +78,7 @@ void SmartSprite::update(Uint32 ticks) {
 void SmartSprite::respawn() {
   X(rand()%Gamedata::getInstance().getXmlInt("maxWidth"));
   Y(rand()%worldHeight);
-  health = Gamedata::getInstance().getXMLInt(getName()+"/health");
+  health = Gamedata::getInstance().getXmlInt(getName()+"/health");
 }
 
 void SmartSprite::explode() {

@@ -2,6 +2,7 @@
 #include "gamedata.h"
 #include "frameFactory.h"
 #include "explodingSprite.h"
+#include "sound.h"
 
 Player::~Player() {
   for (unsigned i = 0; i < strategies.size(); ++i) {
@@ -175,10 +176,7 @@ void Player::update(Uint32 ticks) {
     if ( X() < 0) {
         X(0);
         velocityX(0);
-    } else if (X() > worldWidth-frameWidth) {
-        velocityX(0); 
-        X(worldHeight-frameHeight);
-    }else {
+    } else {
         setPosition(getPosition() + incr);
     }
     
@@ -222,4 +220,5 @@ void Player::explode() {
     if(explosion) return;
     explosion = 
         new ExplodingSprite(Sprite(getName(), getPosition(), Vector2f(0,0), getFrame()));
+    SDLSound::getInstance()[1];
 }

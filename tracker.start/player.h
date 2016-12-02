@@ -29,6 +29,7 @@ public:
   void gainRed(int redin);
   void gainBlue(int bluein);
   void gainYellow(int yellin);
+  void gainHealth(int heal) { health = heal; }
   int getRed() const { return red; }
   int getBlue() const { return blue; }
   int getYellow() const { return yellow; }

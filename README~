@@ -2,14 +2,16 @@ Name: Kyra Koch
 Clemson Email Address: kckoch@clemson.edu
 Course number: 4160
 
-Project no: 5
-Project due date: November 22, 2016
+Project no: 6
+Project due date: December 3, 2016
 
 Project description:
-In this project, I have two lists of bullets: available bullets and bullet that are currently being drawn.  If a rock collides with a bullet, the rock loses some "health".  If the rock loses too much health, it explodes.  The same can be said for the player.  If the player collides with too many rocks, it'll lose health and eventually explode.  I might have it where if a rock explodes, it spawn smaller resource chunks, but we'll see.  By clicking r, you reset the player
+The goal of this game is simply to last for as long as possible without your resources draining or you dying from collisions.  You gain resources from mining rocks of a certain color.  There are also some sentient rocks that will give you all three resources, but they avoid you.  There is no way to regain health.
+
+Standard movement of WASD and toggling the HUD is F1.  There are sounds, so use headphones!  to activate god mode, press g.
 
 Extra Contribution: I drew my own sprites.
 
 Problems with this project:
-If you fire bullets and move, sometimes the bullets get skewed.
+Sometimes the bullets get skewed.  There might be an issue where a rock doesn't explode even when you shoot it.  Also sound does not play if you explode from taking too much damage.
 

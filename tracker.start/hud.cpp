@@ -21,9 +21,7 @@ Hud::Hud() :
     health(100),
     red(100),
     blue(100),
-    yell(100),
-    free(0),
-    bull(0) {}
+    yell(100) {}
 
 void Hud::draw() const {
     if(show) {
@@ -37,8 +35,6 @@ void Hud::draw() const {
         io.printStringAfterMessage("Right: D", 10, 120);
         io.printStringAfterMessage("Toggle HUD: F1", 10, 140);
         io.printMessageAt(title, 10, 450);
-        io.printMessageValueAt("FreeList: ", free, 320, 20);
-        io.printMessageValueAt("InUse: ", bull, 320, 40);
         Draw_AALine(screen, 0, 0, x, 0, GREY);
         Draw_AALine(screen, 0, 0, 0, y, GREY);
         Draw_AALine(screen, 0, y, x, y, GREY);

@@ -42,6 +42,7 @@ private:
 
   bool makeVideo;
   bool god;
+  bool pool;
   int frameCount;
   const std::string username;
   const std::string title;

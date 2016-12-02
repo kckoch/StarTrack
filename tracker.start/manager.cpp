@@ -51,6 +51,7 @@ Manager::Manager() :
   collSize(),
   makeVideo( false ),
   god(false),
+  pool(false),
   frameCount( 0 ),
   username(Gamedata::getInstance().getXmlStr("username")),
   title(Gamedata::getInstance().getXmlStr("screenTitle")),
@@ -143,7 +144,6 @@ void Manager::checkForCollisions() {
     if (player->collidedWith(*special) && !god) {
         player->takeDamage((*special)->getSize());
         (*special)->explode();
-        sound[1];
     }
     ++special;
   }
@@ -164,9 +164,12 @@ void Manager::draw() const {
     (*it)->draw();
   }
   
+  if(pool) {
+    io.printMessageValueAt("FreeList: ", freeBull.size(), 320, 20);
+    io.printMessageValueAt("InUse: ", inUse.size(), 320, 40);
+  }
+  
   player->draw();
-  hud.setFree(freeBull.size());
-  hud.setUse(inUse.size());
   hud.setHealth(player->getHealth());
   hud.setRed(player->getRed());
   hud.setBlue(player->getBlue());
@@ -197,6 +200,7 @@ void Manager::update() {
   }
   player->update(ticks);
   if(god) {
+    player->gainHealth(100);
     player->gainRed(100);
     player->gainBlue(100);
     player->gainYellow(100);
@@ -257,13 +261,12 @@ void Manager::play() {
           std::cout << "Making video frames" << std::endl;
           makeVideo = true;
         }
+        if (keystate[SDLK_F2]) {
+          pool = !pool;
+        }
         if (keystate[SDLK_g]) {
           hud.toggleGod();
-          if(god) {
-            god = false;
-          } else {
-            god = true;
-          }
+          god = !god;
         }
         if (keystate[SDLK_SPACE]) {
           if(freeBull.size() < 2) {

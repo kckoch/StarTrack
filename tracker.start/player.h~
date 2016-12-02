@@ -39,7 +39,7 @@ public:
 private:
   ExplodingSprite *explosion;
   const std::vector<Frame *> frames;
-  Clock& clock;
+  unsigned int elapsedTicks;
   int worldWidth;
   int worldHeight;
   std::vector<CollisionStrategy*> strategies;

@@ -2,6 +2,7 @@
 #include "gamedata.h"
 #include "frameFactory.h"
 #include "explodingSprite.h"
+#include "sound.h"
 
 Player::~Player() {
   for (unsigned i = 0; i < strategies.size(); ++i) {

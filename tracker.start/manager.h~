@@ -35,6 +35,7 @@ private:
 
   Player *player;
   std::vector<Sprite*> sprites;
+  std::vector<SmartSprite*> smarties;
   std::list<Bullet*> freeBull;
   std::list<Bullet*> inUse;
   std::vector<int> collSize;
